@@ -185,6 +185,11 @@ final class ChatViewModel: ObservableObject {
         draftImages.removeAll { $0.id == image.id }
     }
 
+    func addDraftImages(_ images: [ImageAttachment]) {
+        guard !images.isEmpty else { return }
+        draftImages.append(contentsOf: images)
+    }
+
     private func outboundMessages(for latestUserMessage: ChatMessage, in sessionID: UUID) -> [OutboundMessage] {
         let source: [ChatMessage]
         if settings.useContext, let session = sessions.first(where: { $0.id == sessionID }) {

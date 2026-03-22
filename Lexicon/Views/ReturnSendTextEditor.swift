@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ReturnSendTextEditor: NSViewRepresentable {
     @Binding var text: String
+    let onPasteImage: ([ImageAttachment]) -> Void
     let onSubmit: () -> Void
 
     func makeCoordinator() -> Coordinator {
@@ -26,6 +27,7 @@ struct ReturnSendTextEditor: NSViewRepresentable {
             coordinator?.pendingClearAfterSubmit = true
             onSubmit()
         }
+        textView.onPasteImage = onPasteImage
         textView.string = text
         textView.drawsBackground = false
         textView.isEditable = true
@@ -61,6 +63,7 @@ struct ReturnSendTextEditor: NSViewRepresentable {
             coordinator?.pendingClearAfterSubmit = true
             onSubmit()
         }
+        textView.onPasteImage = onPasteImage
 
         let width = max(nsView.contentSize.width, 1)
         if textView.frame.width != width {
@@ -122,6 +125,7 @@ struct ReturnSendTextEditor: NSViewRepresentable {
 
 private final class SubmitTextView: NSTextView {
     var onSubmit: (() -> Void)?
+    var onPasteImage: (([ImageAttachment]) -> Void)?
     private var didAutoFocus = false
 
     override var acceptsFirstResponder: Bool {
@@ -152,11 +156,47 @@ private final class SubmitTextView: NSTextView {
         let modifiers = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
         let hasModifier = !modifiers.intersection([.shift, .control, .option, .command]).isEmpty
 
+        if modifiers.contains(.command),
+           let characters = event.charactersIgnoringModifiers?.lowercased(),
+           characters == "v" {
+            if handlePasteImages() {
+                return
+            }
+        }
+
         if returnKey, !hasModifier, !hasMarkedText() {
             onSubmit?()
             return
         }
 
         super.keyDown(with: event)
+    }
+
+    override func paste(_ sender: Any?) {
+        if handlePasteImages() {
+            return
+        }
+        super.paste(sender)
+    }
+
+    override func pasteAsPlainText(_ sender: Any?) {
+        if handlePasteImages() {
+            return
+        }
+        super.pasteAsPlainText(sender)
+    }
+
+    override func pasteAsRichText(_ sender: Any?) {
+        if handlePasteImages() {
+            return
+        }
+        super.pasteAsRichText(sender)
+    }
+
+    private func handlePasteImages() -> Bool {
+        let attachments = ImageAttachment.fromPasteboard(.general)
+        guard !attachments.isEmpty else { return false }
+        onPasteImage?(attachments)
+        return true
     }
 }

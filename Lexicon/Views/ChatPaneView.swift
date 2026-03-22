@@ -57,6 +57,7 @@ struct ChatPaneView: View {
                 images: viewModel.draftImages,
                 isSending: viewModel.isSending,
                 onPickImage: viewModel.openImagePicker,
+                onPasteImage: viewModel.addDraftImages,
                 onRemoveImage: viewModel.removeDraftImage,
                 onSend: viewModel.sendCurrentMessage,
                 onCancel: viewModel.cancelCurrentRequest

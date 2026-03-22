@@ -6,6 +6,7 @@ struct ComposerView: View {
     let images: [ImageAttachment]
     let isSending: Bool
     let onPickImage: () -> Void
+    let onPasteImage: ([ImageAttachment]) -> Void
     let onRemoveImage: (ImageAttachment) -> Void
     let onSend: () -> Void
     let onCancel: () -> Void
@@ -45,7 +46,7 @@ struct ComposerView: View {
             }
 
             ZStack(alignment: .topLeading) {
-                ReturnSendTextEditor(text: $text) {
+                ReturnSendTextEditor(text: $text, onPasteImage: onPasteImage) {
                     guard !isSending else { return }
                     onSend()
                 }
