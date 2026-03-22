@@ -46,10 +46,6 @@ Lexicon is a modern macOS AI client built with Swift + SwiftUI.
   - In-app language switch: Follow System / Simplified Chinese / English
 - Auto light/dark theme following system appearance (with orange accent and rounded corners)
 
-## Project Path
-
-`/Users/luccazh/Documents/Programing☕️/Lexicon`
-
 ## Run
 
 1. Open `Lexicon.xcodeproj` in Xcode.
