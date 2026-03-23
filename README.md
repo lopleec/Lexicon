@@ -1,3 +1,4 @@
+[README_zh-cn 中文文档](https://github.com/lopleec/Lexicon/blob/main/README_zh-cn.md)
 # Lexicon
 
 Lexicon is a modern macOS AI client built with Swift + SwiftUI.
