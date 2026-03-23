@@ -1,4 +1,4 @@
-[README_en](https://github.com/lopleec/Lexicon/blob/main/README.md)
+[README_en English doc](https://github.com/lopleec/Lexicon/blob/main/README.md)
 
 # Lexicon
 
