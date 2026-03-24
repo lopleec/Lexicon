@@ -1,4 +1,13 @@
-[README_en English doc](https://github.com/lopleec/Lexicon/blob/main/README.md)
+<div align="center">
+
+![Platform](https://img.shields.io/badge/platform-macOS-blue)
+![Language](https://img.shields.io/badge/language-Swift-orange)
+![Framework](https://img.shields.io/badge/framework-SwiftUI-red)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
+
+**[📖 English Doc](https://github.com/lopleec/Lexicon/blob/main/README.md)**
+
+</div>
 
 # Lexicon
 
